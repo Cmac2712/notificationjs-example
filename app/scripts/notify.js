@@ -4,29 +4,30 @@
  * @author Craig Macintyre
  * @todo comment everythind 
  * @todo destroy method add to prototype
+ * @todo add stacking support
  *
  */ 
 
 define(function () {
 	
-	var snippet = "",
-	    appendee = document.getElementsByTagName('body')[0];
+	var 
+	    appendee = document.getElementsByTagName('body')[0],
 
-	    snippet+= "<div class='notify'>";
-	    snippet+= "    <div class='notify__img'></div>";
-	    snippet+= "	   <h2 class='notify__title'></h2>";
-	    snippet+= "    <p class='notify__description'></p>";
-	    snippet+= "</div>",
-	    
-	    notifications = [],
 	    notificationIndex = 1,
 
 	    defaults = {
 		id: '',
-		title: "",
-		description: "",
+		title: '',
+		description: '',
 		duration: 5000
-	    }
+	    },
+
+	    snippet = '';
+	    snippet+= '<div class="notify">';
+	    snippet+= '    <div class="notify__img"></div>';
+	    snippet+= '	   <h2 class="notify__title"</h2>';
+	    snippet+= '    <p class="notify__description"></p>';
+	    snippet+= '</div>';
 
 	function _append () {
 	    appendee.insertAdjacentHTML('afterbegin', snippet);
@@ -60,8 +61,6 @@ define(function () {
 	    
 	    titleNode.appendChild(document.createTextNode(title));
 	    descNode.appendChild(document.createTextNode(description));
-
-	    return notifyNode;
 	}
 
 	function Build (options) {
@@ -82,8 +81,8 @@ define(function () {
 	Build.prototype.go = function () {
 	    var domNode = document.getElementById(this.config.id); 
 
-		domNode.classList.add('active');
-		
+	    domNode.classList.add('active');
+
 		setTimeout(function(){
 		    domNode.classList.remove('active');
 		}, this.config.duration);
@@ -93,8 +92,6 @@ define(function () {
 	    appendee.querySelector('#notify').parentNode.removeChild(appendee.querySelector('#notify'));
 	}
 
-	return {
-	    build: Build
-	}
-
+	    return Build;
+	
 });

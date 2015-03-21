@@ -1,19 +1,18 @@
 require(['notify'], function (Notify) {
-    console.log(Notify);
     var
     
     // Build our notifications    
-    helloWorld = new Notify.build({
+    helloWorld = new Notify({
 	title: 'Hello World!',
 	description: 'This is a notify.js message'
     }),
     
-    anotherMessage = new Notify.build({
+    anotherMessage = new Notify({
        title: 'Another Message',
        description: 'Here is another message'
     }),
     
-    oneLastMessage = new Notify.build({
+    oneLastMessage = new Notify({
        title: 'One Last Message',
        description: 'This is one last message'
     }),
