@@ -2,120 +2,192 @@
  *
  * Notify.js
  * @author Craig Macintyre
- * @todo comment everythind 
- * @todo destroy method add to prototype
  * @todo add stacking support
  *
- */ 
+ */
 
-(function (root, factory) {
+(function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-	        // AMD. Register as an anonymous module.
-		define(factory);
+        // AMD. Register as an anonymous module.
+        define(factory);
     } else {
-	        // Browser globals
-		root.Notify = factory();
+        // Browser globals
+        root.Notify = factory();
     }
 
-}(this, function () {
-        
-	var 
-	    appendee = document.getElementsByTagName('body')[0],
+}(this, function() {
 
-	    notificationIndex = 1,
+    var
 
-	    defaults = {
-		id: '',
-		title: '',
-		description: '',
-		duration: 5000,
-		enterClass: "slideDown",
-		exitClass: "slideUp"
-	    },
+        notificationIndex = 1,
 
-	    snippet = '';
-	    snippet+= '<div class="notify">';
-	    snippet+= '    <div class="notify__img"></div>';
-	    snippet+= '	   <h2 class="notify__title"</h2>';
-	    snippet+= '    <p class="notify__description"></p>';
-	    snippet+= '</div>';
+        /**
+         * Default options
+         */
 
-	function _append () {
-	    appendee.insertAdjacentHTML('afterbegin', snippet);
-	}
+        defaults = {
+            id: '',
+            title: '',
+	    image: '',
+	    imageAlt: '',
+            description: '',
+            appendee: document.getElementsByTagName('body')[0],
+            duration: 5000,
+            enterClass: 'slideDown',
+            exitClass: 'slideUp'
+        },
 
-        function _extend ( defaults, options  ) {
-	// http://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
-	        var extended = {};
-		    var prop;
-		    for (prop in defaults) {
-			if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
-			                extended[prop] = defaults[prop];
-					        
-			}
-			    
-		    }
-		    for (prop in options) {
-			if (Object.prototype.hasOwnProperty.call(options, prop)) {
-			                extended[prop] = options[prop];
-					        
-			}
-			    
-		    }
-		        return extended;
-	}
+    /**
+     * The HTML for notifications
+     */
 
-	function _insertText (title, description) {
-	    var notifyNode = appendee.querySelector('.notify'), 
-		titleNode  = notifyNode.querySelector('.notify__title'), 
-		descNode   = notifyNode.querySelector('.notify__description');	
-	    
-	    titleNode.appendChild(document.createTextNode(title));
-	    descNode.appendChild(document.createTextNode(description));
-	}
+    snippet = '';
+    snippet += '<div class="notify">';
+    snippet += '    <div class="notify__img"><img src="" alt=""></div>';
+    snippet += '	   <h2 class="notify__title"</h2>';
+    snippet += '    <p class="notify__description"></p>';
+    snippet += '</div>';
 
-	function Build (options) {
-	   
-	   var notifys = document.getElementsByClassName('notify');
-	    
-	    this.config = _extend(defaults, options);
+    /**
+     * Add our notification markup to the appendee (body tag by default)
+     */
 
-	    _append();
-	    notifys[0].setAttribute('id', 'notify-'+notificationIndex);
-	    
-	    this.config.id = 'notify-'+notificationIndex;
-	    _insertText(this.config.title, this.config.description);
-	    
-	    notificationIndex++;
-	}
+    function _append(_this) {
+        _this.config.appendee.insertAdjacentHTML('afterbegin', snippet);
+    }
 
-	Build.prototype.go = function () {
-	    var domNode = document.getElementById(this.config.id),
-		that    = this;
-	    //domNode.classList.add(this.config.enterClass);
+    /**
+     * Merge defaults with user options
+     * @param  {Object} defaults - Default options
+     * @param  {Object} options  - User defined options
+     * @return {Object} Merged values of defaults and options
+     */
 
-	    this.config.enterClass.split(' ').forEach(function (className) {
-		domNode.classList.add(className);
-	    });
+    function _extend(defaults, options) {
+        var extended = {};
+        var prop;
+        for (prop in defaults) {
+            if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+                extended[prop] = defaults[prop];
 
-		setTimeout(function(){
-		    that.config.enterClass.split(' ').forEach(function (className) {
-			domNode.classList.remove(className);
-		    });
+            }
 
-		    that.config.exitClass.split(' ').forEach(function (className) {
-			domNode.classList.add(className);
-		    });
+        }
+        for (prop in options) {
+            if (Object.prototype.hasOwnProperty.call(options, prop)) {
+                extended[prop] = options[prop];
 
-		}, this.config.duration);
-	}
-	
-	Build.prototype.destroy = function () {
-	   var elem = document.getElementById(this.config.id);
-	   
-	   elem.parentNode.removeChild(elem);
-	}
+            }
 
-	return Build;
-	
+        }
+        return extended;
+    }
+
+    /**
+     * Insert the text into our notification
+     * @param {String} title       - Notification title text
+     * @param {String} description - Notification description text
+     * @param {Object} appendee    - Our appendee
+     */
+
+    function _insertText(title, description, imagePath, imageAlt, appendee) {
+        var notifyNode = appendee.querySelector('.notify'),
+            titleNode  = notifyNode.querySelector('.notify__title'),
+            descNode   = notifyNode.querySelector('.notify__description'),
+	    imageNode  = notifyNode.querySelector('.notify__img').querySelector('img');
+
+        titleNode.appendChild(document.createTextNode(title));
+        descNode.appendChild(document.createTextNode(description));
+	imageNode.src = imagePath;
+	imageNode.alt = imageAlt;
+    }
+
+    /**
+     * Adds classes to a dom node.
+     * @param {String} classes - A string of space-separated classes or a single class
+     * @param {Object} domNode - The dom node we want to apply classes to
+     */
+
+    function _addClasses(classes, domNode) {
+        var classesArr = classes.split(' ');
+
+        if (classesArr.length > 1) {
+            classesArr.forEach(function(className) {
+                domNode.classList.add(className);
+            });
+        } else {
+            domNode.classList.add(classes);
+        }
+    }
+
+    /**
+     * Removes classes from a dom node
+     * @param {String} classes - A string of space-separated classes or a single class
+     * @param {Object} domNode - The dom node we want to remove classes from
+     */
+
+    function _removeClasses(classes, domNode) {
+        var classesArr = classes.split(' ');
+
+        if (classesArr.length > 1) {
+            classesArr.forEach(function(className) {
+                domNode.classList.remove(className);
+            });
+        } else {
+            domNode.classList.remove(classes);
+        }
+    }
+
+    /**
+     * Construct a notification
+     * @param {Object} options - User-defined options
+     */
+
+    function Build(options) {
+
+        var notifys = document.getElementsByClassName('notify');
+
+        this.config = _extend(defaults, options);
+
+        _append(this);
+        notifys[0].setAttribute('id', 'notify-' + notificationIndex);
+        notifys[0].classList.add('notify-' + notificationIndex);
+
+        this.config.id = 'notify-' + notificationIndex;
+        _insertText(this.config.title, this.config.description, this.config.image, this.config.imageAlt, this.config.appendee);
+
+        notificationIndex++;
+    }
+
+    /**
+     * Reveal the notification
+     */
+
+    Build.prototype.go = function() {
+        var domNode = document.getElementById(this.config.id),
+            that    = this;
+
+        _addClasses(this.config.enterClass, domNode);
+
+        setTimeout(function() {
+            _removeClasses(that.config.enterClass, domNode);
+            _addClasses(that.config.exitClass, domNode);
+            setTimeout(function() {
+                _removeClasses(that.config.exitClass, domNode);
+            }, 1000);
+        }, this.config.duration);
+    };
+
+    /**
+     * Remove the notification from the DOM
+     */
+
+    Build.prototype.destroy = function() {
+        var elem = document.getElementById(this.config.id);
+
+        elem.parentNode.removeChild(elem);
+    };
+
+    return Build;
+
 }));

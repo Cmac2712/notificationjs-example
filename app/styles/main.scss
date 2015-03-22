@@ -31,6 +31,19 @@ $ui-color--tint: lighten($ui-color, 5%);
 body {
     padding-top: 20px;
     padding-bottom: 20px;
+    height: 100vh;
+}
+
+a {
+    color: #fff;
+    
+    &:hover,
+    &:visited,
+    &:focus,
+    &:active {
+	color: #fff;
+	text-decoration: none;
+    }
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -91,12 +104,23 @@ body {
     width: $spacing-unit*25;
     background-color: $ui-color--tint;
     z-index: 99999;
-    -webkit-transform: translate3d(0,-500px,0);
-	    transform: translate3d(0,-500px,0);
-    transition: transform 3s ease-in;
-    transition: -webkit-transform 3s ease-in;
-    transition: opacity, .25s;
+    -webkit-transform: translate3d(0,-150%,0);
+	    transform: translate3d(0,-150%,0);
     @include shadow();
+}
+
+.notify-2 {
+    left: $spacing-unit--half;
+    right: auto;
+}
+
+.notify-3 {
+    -webkit-transform: translate3d(0,150%,0);
+            transform: translate3d(0,150%,0);
+    top: auto;
+    bottom: $spacing-unit--half;
+    left: $spacing-unit--half;
+    right: auto;
 }
 
 .slideDown {
@@ -109,9 +133,9 @@ body {
 }
 
 .slideUp {
-    opacity: 1;
+    opacity: 0;
     -webkit-transform: translate3d(0,-150%,0);
-	    transform: translate3d(0,-100%,0);
+	    transform: translate3d(0,-150%,0);
     transition: transform 3s ease-in;
     transition: -webkit-transform 3s ease-in;
     transition: opacity, .25s;
