@@ -8,8 +8,17 @@
  *
  */ 
 
-define(function () {
-	
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+	        // AMD. Register as an anonymous module.
+		define(factory);
+    } else {
+	        // Browser globals
+		root.Notify = factory();
+    }
+
+}(this, function () {
+        
 	var 
 	    appendee = document.getElementsByTagName('body')[0],
 
@@ -93,8 +102,11 @@ define(function () {
 		    that.config.enterClass.split(' ').forEach(function (className) {
 			domNode.classList.remove(className);
 		    });
-		    domNode.classList.add(that.config.exitClass);
-		    domNode.classList.remove(that.config.exitClass);
+
+		    that.config.exitClass.split(' ').forEach(function (className) {
+			domNode.classList.add(className);
+		    });
+
 		}, this.config.duration);
 	}
 	
@@ -106,4 +118,4 @@ define(function () {
 
 	return Build;
 	
-});
+}));
