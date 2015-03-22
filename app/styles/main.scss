@@ -4,6 +4,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+@import "./animations";
+
 /* Variables */
 
 $spacing-unit: 16px;
@@ -89,7 +91,6 @@ body {
     width: $spacing-unit*25;
     background-color: $ui-color--tint;
     z-index: 99999;
-    opacity: 0;
     -webkit-transform: translate3d(0,-500px,0);
 	    transform: translate3d(0,-500px,0);
     transition: transform 3s ease-in;
@@ -98,10 +99,19 @@ body {
     @include shadow();
 }
 
-.notify.active {
+.slideDown {
     opacity: 1;
     -webkit-transform: translate3d(0,0,0);
 	    transform: translate3d(0,0,0);
+    transition: transform 3s ease-in;
+    transition: -webkit-transform 3s ease-in;
+    transition: opacity, .25s;
+}
+
+.slideUp {
+    opacity: 1;
+    -webkit-transform: translate3d(0,-150%,0);
+	    transform: translate3d(0,-100%,0);
     transition: transform 3s ease-in;
     transition: -webkit-transform 3s ease-in;
     transition: opacity, .25s;

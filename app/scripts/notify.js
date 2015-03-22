@@ -19,7 +19,9 @@ define(function () {
 		id: '',
 		title: '',
 		description: '',
-		duration: 5000
+		duration: 5000,
+		enterClass: "slideDown",
+		exitClass: "slideUp"
 	    },
 
 	    snippet = '';
@@ -79,19 +81,29 @@ define(function () {
 	}
 
 	Build.prototype.go = function () {
-	    var domNode = document.getElementById(this.config.id); 
+	    var domNode = document.getElementById(this.config.id),
+		that    = this;
+	    //domNode.classList.add(this.config.enterClass);
 
-	    domNode.classList.add('active');
+	    this.config.enterClass.split(' ').forEach(function (className) {
+		domNode.classList.add(className);
+	    });
 
 		setTimeout(function(){
-		    domNode.classList.remove('active');
+		    that.config.enterClass.split(' ').forEach(function (className) {
+			domNode.classList.remove(className);
+		    });
+		    domNode.classList.add(that.config.exitClass);
+		    domNode.classList.remove(that.config.exitClass);
 		}, this.config.duration);
 	}
-
-	function destroy () {
-	    appendee.querySelector('#notify').parentNode.removeChild(appendee.querySelector('#notify'));
+	
+	Build.prototype.destroy = function () {
+	   var elem = document.getElementById(this.config.id);
+	   
+	   elem.parentNode.removeChild(elem);
 	}
 
-	    return Build;
+	return Build;
 	
 });
