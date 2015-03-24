@@ -1,3 +1,5 @@
 # Notification.js Example Page
 
-View here: [www.craigmacintyre.co.uk/notifyjs](http://craigmacintyre.co.uk/notifyjs)
+Simple notifications in the browser. Vanilla js. No dependencies.
+
+View here: [cmac2712.github.io/notificationjs](http://cmac2712.github.io/notificationjs)
