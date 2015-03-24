@@ -4671,7 +4671,7 @@ a {
   .marketing p + h4 {
     margin-top: 28px; }
 
-.notify {
+.notification {
   position: fixed;
   right: 8px;
   top: 8px;
@@ -4682,11 +4682,11 @@ a {
   transform: translate3d(0, -150%, 0);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 
-.notify-2 {
+.notification-2 {
   left: 8px;
   right: auto; }
 
-.notify-3 {
+.notification-3 {
   -webkit-transform: translate3d(0, 150%, 0);
   transform: translate3d(0, 150%, 0);
   top: auto;
@@ -4710,7 +4710,7 @@ a {
   transition: -webkit-transform 3s ease-in;
   transition: opacity, 0.25s; }
 
-.notify__img {
+.notification__img {
   float: left;
   width: 100px;
   height: 100px;
@@ -4718,10 +4718,10 @@ a {
   background-image: url(../images/view-from-back-window.jpg);
   background-size: cover; }
 
-.notify__img img {
+.notification__img img {
   width: 100%; }
 
-.notify__title, .notify__description {
+.notification__title, .notification__description {
   font-size: 1em;
   margin: 8px 0;
   padding-left: 8px; }

@@ -1,5 +1,10 @@
 ({
-    baseUrl: "./scripts",
+    baseUrl: "scripts",
     name: "main",
-    out: "app.js"
+    paths: {
+	"require": 'require',
+	"notificationjs": 'notificationjs',
+	"main": 'main'
+    },
+    out: "scripts/app.js"
 })

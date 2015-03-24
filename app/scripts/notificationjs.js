@@ -1,6 +1,6 @@
 /**
  *
- * Notify.js
+ * Notification.js
  * @author Craig Macintyre
  * @todo add stacking support
  *
@@ -12,7 +12,7 @@
         define(factory);
     } else {
         // Browser globals
-        root.Notify = factory();
+        root.notification = factory();
     }
 
 }(this, function() {
@@ -42,10 +42,10 @@
      */
 
     snippet = '';
-    snippet += '<div class="notify">';
-    snippet += '    <div class="notify__img"><img src="" alt=""></div>';
-    snippet += '	   <h2 class="notify__title"</h2>';
-    snippet += '    <p class="notify__description"></p>';
+    snippet += '<div class="notification">';
+    snippet += '    <div class="notification__img"><img src="" alt=""></div>';
+    snippet += '	   <h2 class="notification__title"</h2>';
+    snippet += '    <p class="notification__description"></p>';
     snippet += '</div>';
 
     /**
@@ -91,10 +91,10 @@
      */
 
     function _insertText(title, description, imagePath, imageAlt, appendee) {
-        var notifyNode = appendee.querySelector('.notify'),
-            titleNode  = notifyNode.querySelector('.notify__title'),
-            descNode   = notifyNode.querySelector('.notify__description'),
-	    imageNode  = notifyNode.querySelector('.notify__img').querySelector('img');
+        var notificationNode = appendee.querySelector('.notification'),
+            titleNode  = notificationNode.querySelector('.notification__title'),
+            descNode   = notificationNode.querySelector('.notification__description'),
+	    imageNode  = notificationNode.querySelector('.notification__img').querySelector('img');
 
         titleNode.appendChild(document.createTextNode(title));
         descNode.appendChild(document.createTextNode(description));
@@ -145,15 +145,15 @@
 
     function Build(options) {
 
-        var notifys = document.getElementsByClassName('notify');
+        var notifications = document.getElementsByClassName('notification');
 
         this.config = _extend(defaults, options);
 
         _append(this);
-        notifys[0].setAttribute('id', 'notify-' + notificationIndex);
-        notifys[0].classList.add('notify-' + notificationIndex);
+        notifications[0].setAttribute('id', 'notification-' + notificationIndex);
+        notifications[0].classList.add('notification-' + notificationIndex);
 
-        this.config.id = 'notify-' + notificationIndex;
+        this.config.id = 'notification-' + notificationIndex;
         _insertText(this.config.title, this.config.description, this.config.image, this.config.imageAlt, this.config.appendee);
 
         notificationIndex++;

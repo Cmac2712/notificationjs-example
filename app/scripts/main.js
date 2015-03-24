@@ -1,10 +1,10 @@
-require(['notify'], function(Notify) {
+require(['notificationjs'], function(Notificationjs) {
     var
 
-    // Build our notifications    
-        helloWorld = new Notify({
+    // Build our Notifications    
+        helloWorld = new Notificationjs({
             title: 'Hello World!',
-            description: 'This is a notify.js message',
+            description: 'This is a notificationjs.js message',
 	    image: 'images/doggy.jpg',
 	    imageAlt: 'doggy',
             enterClass: 'animated fadeInDown',
@@ -12,7 +12,7 @@ require(['notify'], function(Notify) {
             duration: 3000
         }),
 
-        anotherMessage = new Notify({
+        anotherMessage = new Notificationjs({
             title: 'Another Message',
             description: 'Here is another message',
 	    image: 'images/eagle.jpg',
@@ -22,7 +22,7 @@ require(['notify'], function(Notify) {
             duration: 3000
         }),
 
-        oneLastMessage = new Notify({
+        oneLastMessage = new Notificationjs({
             title: 'One Last Message',
             description: 'This is one last message',
 	    image: 'images/van.jpg',
@@ -32,22 +32,22 @@ require(['notify'], function(Notify) {
         }),
 
         // Get buttons
-        notifyOne = document.getElementById('notify-one'),
-        notifyTwo = document.getElementById('notify-two'),
-        notifyThree = document.getElementById('notify-three');
+        notificationjsOne = document.getElementById('notificationjs-one'),
+        notificationjsTwo = document.getElementById('notificationjs-two'),
+        notificationjsThree = document.getElementById('notificationjs-three');
 
     // Event Listeners
-    notifyOne.addEventListener('click', function(e) {
+    notificationjsOne.addEventListener('click', function(e) {
         e.preventDefault();
         helloWorld.go();
     });
 
-    notifyTwo.addEventListener('click', function(e) {
+    notificationjsTwo.addEventListener('click', function(e) {
         e.preventDefault();
         anotherMessage.go();
     });
 
-    notifyThree.addEventListener('click', function(e) {
+    notificationjsThree.addEventListener('click', function(e) {
         e.preventDefault();
         oneLastMessage.go();
     });

@@ -97,7 +97,7 @@ a {
 }
 
 
-.notify {
+.notification {
     position: fixed;
     right: $spacing-unit--half;
     top: $spacing-unit--half;
@@ -109,12 +109,12 @@ a {
     @include shadow();
 }
 
-.notify-2 {
+.notification-2 {
     left: $spacing-unit--half;
     right: auto;
 }
 
-.notify-3 {
+.notification-3 {
     -webkit-transform: translate3d(0,150%,0);
             transform: translate3d(0,150%,0);
     top: auto;
@@ -141,7 +141,7 @@ a {
     transition: opacity, .25s;
 }
 
-.notify__img {
+.notification__img {
     float: left;
     width: 100px;
     height: 100px;
@@ -150,12 +150,12 @@ a {
     background-size: cover;
 }
 
-.notify__img img {
+.notification__img img {
     width: 100%;
 }
 
-.notify__title,
-.notify__description {
+.notification__title,
+.notification__description {
     font-size: 1em;
     margin: $spacing-unit--half 0;
     padding-left: $spacing-unit--half;
